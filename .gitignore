@@ -1,4 +1,9 @@
 .vscode
+*.include
+*.diff
+*.txt
+y86
+
 
 # Prerequisites
 *.d
