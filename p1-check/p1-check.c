@@ -22,12 +22,37 @@ void usage_p1 ()
 bool parse_command_line_p1 (int argc, char **argv, bool *header, char **file)
 {
     // Implement this function
-    return false;
+    // Read system argv and parsing
+    int opt;
+    while ((opt = getopt(argc, argv, "+hH")) != -1) 
+    {
+        switch (opt)
+        {
+            case 'h':
+                usage_p1();
+                *header = false;
+                *file = NULL;
+                return true;
+            case 'H':
+                *header = true;
+                *file = NULL;
+                break;
+            default:
+            // invalid options
+                usage_p1();
+                *header = false;
+                *file = NULL;
+                return false;
+        }
+    }
+    *file = argv[optind];
+    return true;
 }
 
 bool read_header (FILE *file, elf_hdr_t *hdr)
 {
     // Implement this function
+    // fread(data, 8, 1, fp);
     return false;
 }
 

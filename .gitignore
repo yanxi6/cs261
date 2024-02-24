@@ -3,6 +3,7 @@
 *.diff
 *.txt
 y86
+testsuite
 
 
 # Prerequisites
