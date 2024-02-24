@@ -1,0 +1,17 @@
+# list of integration tests
+#  format: run_test <TAG> <ARGS>
+#    <TAG>      used as the root for all filenames (i.e., "expected/$TAG.txt")
+#    <ARGS>     command-line arguments to test
+
+run_test    C_simple_hex            "-H inputs/simple.o"
+run_test    C_help                  "-h"
+run_test    B_just_check_header     "inputs/simple.o"
+run_test    B_just_check_header2     "inputs/bad-no_elf.o"
+run_test    B_multisegment          "-H inputs/multiseg.o"
+run_test    B_stripped              "-H inputs/stripped.o"
+run_test    A_invalid_param         "-H -x inputs/stripped.o"
+run_test    A_missing_filename      "-H"
+run_test    A_nonexistent_file      "-H nonexist.o"
+run_test    A_no_elf                "-H inputs/bad-no_elf.o"
+run_test    A_short_header          "-H inputs/bad-short_header.o"
+run_test    A_both_options          "-Hh inputs/simple.o"
