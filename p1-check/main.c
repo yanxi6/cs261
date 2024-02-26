@@ -18,9 +18,9 @@ int main (int argc, char **argv)
     // Write code to call the parse function then 
     // open the elf file, read its header, and react depending on whether -H was present
     char* fname;
-    bool header_dumped;
+    bool header_need_dumped; // B_just_check_header
     elf_hdr_t header;
-    if (!parse_command_line_p1(argc, argv, &header_dumped, &fname))
+    if (!parse_command_line_p1(argc, argv, &header_need_dumped, &fname))
     {
         exit(EXIT_FAILURE);
     }
@@ -28,8 +28,6 @@ int main (int argc, char **argv)
     {
         exit(EXIT_SUCCESS);
     }
-    // char *wd =getcwd(NULL, 0);
-    // FILE* fp = fopen(fname, "r");
     FILE* fp = fopen(fname, "r");
     if(!fp)
     {
@@ -41,7 +39,10 @@ int main (int argc, char **argv)
         puts("Failed to read file");
 		exit(EXIT_FAILURE);
     }
-    dump_header(header);
+	if(header_need_dumped != 0)
+	{
+		dump_header(header);
+	}
     fclose (fp);
     return EXIT_SUCCESS;
 }

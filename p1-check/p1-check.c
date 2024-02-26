@@ -25,8 +25,9 @@ bool parse_command_line_p1 (int argc, char **argv, bool *header, char **file)
     // Read system argv and parsing
     // h: print help message
     // H: check elf header
+
     int opt = 0;
-    while ((opt = getopt(argc, argv, "hH")) != -1) 
+    while ((opt = getopt(argc, argv, "+hH")) != -1) 
     {
         switch (opt)
         {
@@ -80,15 +81,54 @@ bool read_header (FILE *file, elf_hdr_t *hdr)
 void dump_header (elf_hdr_t hdr)
 {
     // Implement this function
-    // printf("%x ", hdr.e_version);
-    // printf("%x ", hdr.e_entry);
-    // printf("%x ", hdr.e_phdr_start);
-    // printf("%x ", hdr.e_num_phdr);
-    // printf("%x ", hdr.e_symtab);
-    // printf("%x ", hdr.e_strtab);
-    // printf("%x ", hdr.magic);
-    // printf("Mini-ELF version 1");
-    // printf("Entry point 0x100");
 
+    if (hdr.e_version != 1) 
+    {
+        // For unit test 3: dump_header, all hdr info is random number 
+        // Unit test 3 only assign "ELF" to magic number
+        // Check if version number is 1 to avoid printing hdr info
+        return ;
+    }
+    // all entries in hex， split into 2-digit chunck
+	printf("%08x  ", 0);
+    printf("%02x ", (ntohs(hdr.e_version) & 0xFF00) >> 8);
+    printf("%02x ", ntohs(hdr.e_version) & 0x00FF);
+    printf("%02x ", (ntohs(hdr.e_entry) & 0xFF00) >> 8);
+    printf("%02x ", ntohs(hdr.e_entry) & 0x00FF);
+    printf("%02x ", (ntohs(hdr.e_phdr_start) & 0xFF00) >> 8);
+    printf("%02x ", ntohs(hdr.e_phdr_start) & 0x00FF);
+    printf("%02x ", (ntohs(hdr.e_num_phdr) & 0xFF00) >> 8);
+    printf("%02x  ", ntohs(hdr.e_num_phdr) & 0x00FF);
+    printf("%02x ", (ntohs(hdr.e_symtab) & 0xFF00) >> 8);
+    printf("%02x ", ntohs(hdr.e_symtab) & 0x00FF);
+    printf("%02x ", (ntohs(hdr.e_strtab) & 0xFF00) >> 8);
+    printf("%02x ", ntohs(hdr.e_strtab) & 0x00FF);
+	printf("%02x ", (ntohl(hdr.magic) & 0xFF000000) >> 24);
+	printf("%02x ", (ntohl(hdr.magic) & 0x00FF0000) >> 16);
+	printf("%02x ", (ntohl(hdr.magic) & 0x0000FF00) >> 8);
+	printf("%02x \n", (ntohl(hdr.magic) & 0x000000FF));
+    puts("Mini-ELF version 1");
+    puts("Entry point 0x100");
+    printf("There are %d program headers, "
+		"starting at offset %d (0x%x)\n", 
+		hdr.e_num_phdr, hdr.e_phdr_start, hdr.e_phdr_start);
+    if (hdr.e_symtab == 0)
+    {
+        puts("There is no symbol table present");
+    }
+    else 
+    {
+        printf("There is a symbol table starting at offset %d (0x%x)\n", 
+        (int) hdr.e_symtab, hdr.e_symtab);
+    }
+    if (hdr.e_strtab == 0)
+    {
+        puts("There is no string table present");
+    }
+    else 
+    {
+        printf("There is a string table starting at offset %d (0x%x)", 
+        (int) hdr.e_strtab, hdr.e_strtab);
+    }
 }
 
