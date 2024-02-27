@@ -1,0 +1,26 @@
+# list of integration tests
+#  format: run_test <TAG> <ARGS>
+#    <TAG>      used as the root for all filenames (i.e., "expected/$TAG.txt")
+#    <ARGS>     command-line arguments to test
+
+run_test    C_help                  "-h"
+run_test    C_no_flags              "       inputs/bad-ELFheader.o"
+run_test    C_simple_H              "-H     inputs/simple.o"
+run_test    C_simple_s              "-s     inputs/simple.o"
+run_test    C_multiseg_sH           "-sH    inputs/multiseg.o"
+run_test    C_multiseg_f            "-f     inputs/multiseg.o"
+run_test    C_stripped_sM           "-sM    inputs/stripped.o"
+run_test    C_repeated              "-s -Ms inputs/simple.o"
+run_test    B_stripped_m            "-m     inputs/stripped.o"
+run_test    B_stripped_mH           "-mH    inputs/stripped.o"
+run_test    B_all_flags_memBrief    "-Hsm   inputs/simple.o"
+run_test    B_all_flags_memFull     "-HsM   inputs/simple.o"
+run_test    B_stack                 "-a     inputs/stack.o"
+run_test    B_brief_full            "-m -M  inputs/simple.o"
+run_test    A_VmemEnd               "-a     inputs/multiseg_vMemEnd.o"
+run_test    A_multiseg_Zero         "-ms    inputs/multiseg_zero.o"
+run_test    A_bad_phdr_vaddr        "-m     inputs/bad-phdr_vaddr.o"
+run_test    A_bad_phdr_short        "-s     inputs/bad-phdr_short.o"
+run_test    A_no_flags_bad          "       inputs/bad-phdr_short.o"
+run_test    A_bad_phdr_magic        "-s     inputs/bad-phdr_magic.o"
+run_test    A_bad_seg_notFit        "-H     inputs/bad-seg_notFit.o"
