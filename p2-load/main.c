@@ -14,6 +14,17 @@
 
 int main (int argc, char **argv)
 {
+    char* fname;
+    bool header_need_dumped; // B_just_check_header
+    bool segments; 
+    bool membrief; 
+    bool memfull;
+    elf_hdr_t header;
+    if (!parse_command_line_p2(argc, argv, &header_need_dumped, &segments, 
+        &membrief, &memfull, &fname))
+    {
+        exit(EXIT_FAILURE);
+    }
     return EXIT_SUCCESS;
 }
 
