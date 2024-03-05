@@ -30,7 +30,7 @@ bool parse_command_line_p2 (int argc, char **argv,
         char **file)
 {
     int opt = 0;
-    while ((opt = getopt(argc, argv, "+hH")) != -1) 
+    while ((opt = getopt(argc, argv, "+hHafsmM")) != -1) 
     {
         switch (opt)
         {
@@ -73,8 +73,25 @@ bool read_phdr (FILE *file, uint16_t offset, elf_phdr_t *phdr)
     // starting from byte offset in the file. 
     // If the reading fails or it is not a valid program header 
     // (e.g., the magic number is incorrect), return false.
-
-
+    elf_hdr_t hdr;
+    if(!file || !phdr)
+    {
+        return false;
+    }
+    // if(fread(hdr, sizeof(elf_hdr_t), 1, file) == -1)
+    // {
+    //     return false;
+    // }
+    fseek(file, sizeof(elf_hdr_t), SEEK_SET);
+    if(fread(phdr, sizeof(elf_phdr_t), 1, file) == -1)
+    {
+        return false;
+    }
+    // if (hdr.magic != ntohl(0x454C4600))
+	// {
+	// 	//bad magic number
+	// 	return false;
+	// }
     return true;
 }
 
