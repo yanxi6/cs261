@@ -82,7 +82,7 @@ bool read_phdr (FILE *file, uint16_t offset, elf_phdr_t *phdr)
     // {
     //     return false;
     // }
-    fseek(file, sizeof(elf_hdr_t), SEEK_SET);
+    fseek(file, offset, SEEK_SET);
     if(fread(phdr, sizeof(elf_phdr_t), 1, file) == -1)
     {
         return false;
