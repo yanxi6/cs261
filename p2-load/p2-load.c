@@ -87,11 +87,11 @@ bool read_phdr (FILE *file, uint16_t offset, elf_phdr_t *phdr)
     {
         return false;
     }
-    // if (hdr.magic != ntohl(0x454C4600))
-	// {
-	// 	//bad magic number
-	// 	return false;
-	// }
+    if (phdr->magic != 0xDEADBEEF)
+	{
+		//bad magic number
+		return false;
+	}
     return true;
 }
 
@@ -101,6 +101,15 @@ void dump_phdrs (uint16_t numphdrs, elf_phdr_t phdr[])
 
 bool load_segment (FILE *file, memory_t memory, elf_phdr_t phdr)
 {
+    if(phdr.p_filesz == 0) 
+    {
+        return false;
+    }
+    fseek(file, phdr.p_offset, SEEK_SET);
+    if (fread(&memory[phdr.p_vaddr], phdr.p_filesz, 1, file) != 1)
+	{	
+		return false;
+	}
     return true;
 }
 
