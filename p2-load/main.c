@@ -26,13 +26,26 @@ int main (int argc, char **argv)
     //     exit(EXIT_FAILURE);
     // }
 
-    FILE *fp = fopen ("tests/inputs/stripped.o", "r");
-    uint16_t offset = 0x10;
-    elf_phdr_t phdr;
-    bool rc = false;
-
+    char* fname;
+    bool header_need_dumped; // B_just_check_header
+    elf_phdr_t header;
+    bool segments, membrief, memfull;
 
     rc = read_phdr (fp, offset, &phdr);
+    if(!parse_command_line_p2(argc, argv, &header_need_dumped, &fname))
+    {
+        exit(EXIT_FAILURE);
+    }
+    if(!fname)
+    {
+        exit(EXIT_SUCCESS);
+    }
+    if(!read_phdr(fp, &header))
+    {
+        puts("Failed to read file");
+		exit(EXIT_FAILURE);
+    }
+    read_phdr
     return EXIT_SUCCESS;
 }
 
