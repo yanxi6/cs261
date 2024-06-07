@@ -1,0 +1,41 @@
+# list of integration tests
+#  format: run_test <TAG> <ARGS>
+#    <TAG>      used as the root for all filenames (i.e., "expected/$TAG.txt")
+#    <ARGS>     command-line arguments to test
+
+run_test    D_help                  "-h"
+run_test    D_onebyte               "-d    inputs/onebyte.o"
+
+run_test    C_twobyte               "-d    inputs/twobyte.o"
+run_test    C_cmov                  "-d    inputs/cmov.o"
+run_test    C_opq                   "-d    inputs/opq.o"
+
+run_test    B_ninebyte              "-d    inputs/ninebyte.o"
+run_test    B_jmp                   "-d    inputs/jmp.o"
+run_test    B_tenbyte               "-d    inputs/tenbyte.o"
+run_test    B_simple                "-a -d inputs/simple.o"
+run_test    B_simple_multi          "-d    inputs/simple_multi.o"
+run_test    B_data_code             "-D -d inputs/data.o"
+
+#=========  Tests added by Mohamed Aboutabl  ===========================
+run_test    B_r8                    "-d inputs/r8.o"
+run_test    B_invalid_rA            "-d inputs/invalid-rA.o"
+run_test    B_invalid_rB            "-d inputs/invalid-rB.o"
+run_test    B_invalid_rB_too        "-d inputs/invalid-rB-too.o"
+#=======================================================================
+
+run_test    A_data_code             "-D -d inputs/simple_not.o"
+run_test    A_data                  "-D    inputs/simple_not.o"
+run_test    A_code                  "-d    inputs/simple_not.o"
+run_test    A_addrModes             "-dD   inputs/addrModes.o"
+run_test    A_rodata                "-D    inputs/rodata.o"
+run_test    A_rodata_multi          "-D    inputs/rodata_multi.o"
+run_test    A_rodata_long           "-D    inputs/rodata_long.o"
+run_test    A_invalidOpcode         "-d    inputs/invalidOpcode.o"
+
+run_test    A_bad_no_elf            "-d    inputs/bad-no_elf.o"
+run_test    A_bad_phdr              "-d    inputs/bad-phdr.o"
+run_test    A_bad_short_header      "-d    inputs/bad-short_header.o"
+run_test    A_bad_short_phdr        "-d    inputs/bad-short_phdr.o"
+run_test    A_bad_filename          "-d    inputs/bad-nonexist.o"
+
